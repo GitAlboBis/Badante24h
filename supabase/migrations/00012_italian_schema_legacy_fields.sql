@@ -80,3 +80,47 @@ CREATE POLICY "Utenti possono inserire i propri dettagli badante" ON public.dett
 CREATE POLICY "Dettagli famiglia visibili a tutti i profili autenticati" ON public.dettagli_famiglia FOR SELECT TO authenticated USING (true);
 CREATE POLICY "Utenti possono aggiornare i propri dettagli famiglia" ON public.dettagli_famiglia FOR UPDATE TO authenticated USING (profilo_id IN (SELECT id FROM public.profili WHERE utente_id = auth.uid()));
 CREATE POLICY "Utenti possono inserire i propri dettagli famiglia" ON public.dettagli_famiglia FOR INSERT TO authenticated WITH CHECK (profilo_id IN (SELECT id FROM public.profili WHERE utente_id = auth.uid()));
+
+-- Create an RPC to search nearby badanti based on location
+CREATE OR REPLACE FUNCTION public.cerca_badanti_vicine(
+    lat_target double precision,
+    lon_target double precision,
+    raggio_km double precision DEFAULT 50
+)
+RETURNS TABLE (
+    id UUID,
+    nome TEXT,
+    provincia TEXT,
+    avatar_url TEXT,
+    distanza_km double precision,
+    sesso VARCHAR(1),
+    eta INTEGER,
+    citta TEXT,
+    nazionalita TEXT,
+    compenso_orientativo TEXT
+)
+LANGUAGE sql
+STABLE
+AS $$
+    SELECT 
+        p.id,
+        p.nome,
+        p.provincia,
+        p.avatar_url,
+        (ST_Distance(p.location, ST_SetSRID(ST_MakePoint(lon_target, lat_target), 4326)::geography) / 1000)::double precision AS distanza_km,
+        db.sesso,
+        EXTRACT(YEAR FROM AGE(CURRENT_DATE, db.data_di_nascita))::integer AS eta,
+        db.citta,
+        db.nazionalita,
+        db.compenso_orientativo
+    FROM 
+        public.profili p
+    JOIN 
+        public.dettagli_badante db ON p.id = db.profilo_id
+    WHERE 
+        p.ruolo = 'badante'
+        AND p.location IS NOT NULL
+        AND ST_DWithin(p.location, ST_SetSRID(ST_MakePoint(lon_target, lat_target), 4326)::geography, raggio_km * 1000)
+    ORDER BY 
+        distanza_km ASC;
+$$;
