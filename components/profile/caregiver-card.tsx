@@ -1,96 +1,98 @@
 import React from 'react'
-import { Heart, MapPin, Star, BadgeCheck } from 'lucide-react'
-import { CaregiverResult } from '@/types'
-import { formatDistance } from '@/lib/utils'
+import Link from 'next/link'
+import { Heart, MapPin } from 'lucide-react'
+import type { CercaBadantiResult } from '@/types'
 
 interface CaregiverCardProps {
-    profile: CaregiverResult
+    profile: CercaBadantiResult
 }
 
 export function CaregiverCard({ profile }: CaregiverCardProps) {
-    // Format care_type enum for display
-    const primaryCareType = profile.care_types?.[0]
-    const displayCareType = primaryCareType === 'oss'
-        ? 'OSS'
-        : primaryCareType === 'babysitter'
-            ? 'Babysitter'
-            : primaryCareType === 'colf'
-                ? 'Colf'
-                : 'Badante'
+    const initials = profile.nome
+        ? profile.nome
+            .split(' ')
+            .map((w) => w[0])
+            .join('')
+            .toUpperCase()
+            .slice(0, 2)
+        : '??'
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 dark:border-slate-800 flex flex-col">
-            <div className="relative h-56 shrink-0 bg-slate-100 dark:bg-slate-800">
+        <Link
+            href={`/profile/${profile.id}`}
+            className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 dark:border-slate-800 flex flex-col focus-visible:ring-2 focus-visible:ring-primary outline-none"
+        >
+            {/* ── Image / Avatar ── */}
+            <div className="relative h-52 shrink-0 bg-slate-100 dark:bg-slate-800 overflow-hidden">
                 {profile.avatar_url ? (
                     <img
-                        alt={`${profile.first_name} ${profile.last_name}`}
-                        className="w-full h-full object-cover"
+                        alt={profile.nome ?? 'Badante'}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         src={profile.avatar_url}
+                        loading="lazy"
                     />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center text-slate-400 text-sm">
-                        Nessuna foto
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+                        <span className="text-3xl font-black text-primary/40 select-none">
+                            {initials}
+                        </span>
                     </div>
                 )}
 
-                <div className="absolute top-3 right-3 flex flex-col gap-2">
-                    <button className="p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-full text-rose-500 shadow-sm hover:scale-110 transition-transform">
-                        <Heart className="size-5 fill-current" />
-                    </button>
-                </div>
+                {/* Favourite button */}
+                <button
+                    onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }}
+                    className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-full text-rose-400 hover:text-rose-500 shadow-sm hover:scale-110 transition-transform"
+                    aria-label="Aggiungi ai preferiti"
+                >
+                    <Heart className="size-5" />
+                </button>
 
-                {profile.is_online && (
-                    <div className="absolute bottom-3 left-3 flex items-center gap-2">
-                        <div className="size-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900 ring-2 ring-emerald-500/20"></div>
-                        <span className="text-white text-[10px] font-bold bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full uppercase tracking-wider">
-                            Online
-                        </span>
+                {/* Distance pill */}
+                {profile.distanza_km != null && (
+                    <div className="absolute bottom-3 left-3 flex items-center gap-1.5 bg-black/50 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                        <MapPin className="size-3.5" />
+                        {profile.distanza_km < 1
+                            ? `${Math.round(profile.distanza_km * 1000)} m`
+                            : `${profile.distanza_km.toFixed(1)} km`}
                     </div>
                 )}
             </div>
 
-            <div className="p-5 flex flex-col flex-1">
-                <div className="flex items-start justify-between mb-1">
-                    <div className="flex items-center gap-1.5">
-                        <h3 className="font-bold text-lg truncate">
-                            {profile.first_name} {profile.last_name[0]}.{profile.age ? `, ${profile.age}` : ''}
-                        </h3>
-                        {profile.is_verified && (
-                            <div title="Profilo Verificato">
-                                <BadgeCheck className="text-emerald-500 size-5" />
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-500/10 text-amber-600 px-2 py-1 rounded-lg">
-                        <Star className="size-3.5 fill-current" />
-                        <span className="text-xs font-bold">{profile.rating ? profile.rating.toFixed(1) : 'Nuovo'}</span>
-                    </div>
+            {/* ── Content ── */}
+            <div className="p-4 flex flex-col flex-1">
+                {/* Name + badge */}
+                <div className="flex items-center gap-1.5 mb-0.5">
+                    <h3 className="font-bold text-[15px] truncate">
+                        {profile.nome ?? 'Senza nome'}
+                        {profile.eta ? `, ${profile.eta}` : ''}
+                    </h3>
+                    {/* placeholder verified badge — controlled by backend later */}
                 </div>
 
-                <p className="text-sm text-slate-500 flex items-center gap-1 mb-4">
-                    <MapPin className="size-4" /> {formatDistance(profile.distance || 0)} • {profile.city || 'Milano'}
+                {/* City + nationality */}
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate mb-3">
+                    {[profile.citta, profile.nazionalita].filter(Boolean).join(' · ') || profile.provincia || '—'}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full uppercase tracking-wide">
-                        {displayCareType}
-                    </span>
-                </div>
-
-                <div className="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+                {/* Compensation */}
+                <div className="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                     <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
-                        <span className="text-xl font-black text-primary">
-                            €{profile.hourly_rate}
-                            <span className="text-sm font-normal text-slate-400">/ora</span>
+                        <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                            Compenso
+                        </span>
+                        <span className="text-base font-extrabold text-primary leading-tight">
+                            {profile.compenso_orientativo || '—'}
                         </span>
                     </div>
-                    <button className="bg-primary text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">
+                    <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors">
                         Contatta
-                    </button>
+                    </span>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

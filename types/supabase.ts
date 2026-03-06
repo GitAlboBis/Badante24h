@@ -1,158 +1,297 @@
 export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+    | string
+    | number
+    | boolean
+    | null
+    | { [key: string]: Json | undefined }
+    | Json[]
 
-export interface Database {
-  public: {
-    Tables: {
-      profiles: {
-        Row: {
-          id: string
-          role: Database['public']['Enums']['user_role']
-          first_name: string
-          last_name: string
-          avatar_url: string | null
-          phone: string | null
-          city: string | null
-          created_at: string
-          updated_at: string
+export type Database = {
+    public: {
+        Tables: {
+            profili: {
+                Row: {
+                    id: string
+                    utente_id: string | null
+                    ruolo: Database['public']['Enums']['ruolo_utente']
+                    tipo_profilo: string | null
+                    nome: string | null
+                    provincia: string | null
+                    data_iscrizione: string | null
+                    ultimo_accesso: string | null
+                    numero_visite: number | null
+                    avatar_url: string | null
+                    location: unknown | null
+                }
+                Insert: {
+                    id?: string
+                    utente_id?: string | null
+                    ruolo: Database['public']['Enums']['ruolo_utente']
+                    tipo_profilo?: string | null
+                    nome?: string | null
+                    provincia?: string | null
+                    data_iscrizione?: string | null
+                    ultimo_accesso?: string | null
+                    numero_visite?: number | null
+                    avatar_url?: string | null
+                    location?: unknown | null
+                }
+                Update: {
+                    id?: string
+                    utente_id?: string | null
+                    ruolo?: Database['public']['Enums']['ruolo_utente']
+                    tipo_profilo?: string | null
+                    nome?: string | null
+                    provincia?: string | null
+                    data_iscrizione?: string | null
+                    ultimo_accesso?: string | null
+                    numero_visite?: number | null
+                    avatar_url?: string | null
+                    location?: unknown | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: 'profili_utente_id_fkey'
+                        columns: ['utente_id']
+                        isOneToOne: false
+                        referencedRelation: 'users'
+                        referencedColumns: ['id']
+                    },
+                ]
+            }
+            dettagli_badante: {
+                Row: {
+                    profilo_id: string
+                    sesso: string | null
+                    data_di_nascita: string | null
+                    paese_residenza: string | null
+                    citta: string | null
+                    nazionalita: string | null
+                    lingue_parlate: string[] | null
+                    lingue_base: string[] | null
+                    disponibilita_ore: string | null
+                    esperienze_precedenti: boolean | null
+                    fuma: boolean | null
+                    patente_guida: boolean | null
+                    automunita: boolean | null
+                    aiuto_persone_disabili: boolean | null
+                    aiuto_lavori_domestici: boolean | null
+                    lettera_presentazione_famiglie: string | null
+                    esperienze_lavorative: string | null
+                    compenso_orientativo: string | null
+                }
+                Insert: {
+                    profilo_id: string
+                    sesso?: string | null
+                    data_di_nascita?: string | null
+                    paese_residenza?: string | null
+                    citta?: string | null
+                    nazionalita?: string | null
+                    lingue_parlate?: string[] | null
+                    lingue_base?: string[] | null
+                    disponibilita_ore?: string | null
+                    esperienze_precedenti?: boolean | null
+                    fuma?: boolean | null
+                    patente_guida?: boolean | null
+                    automunita?: boolean | null
+                    aiuto_persone_disabili?: boolean | null
+                    aiuto_lavori_domestici?: boolean | null
+                    lettera_presentazione_famiglie?: string | null
+                    esperienze_lavorative?: string | null
+                    compenso_orientativo?: string | null
+                }
+                Update: {
+                    profilo_id?: string
+                    sesso?: string | null
+                    data_di_nascita?: string | null
+                    paese_residenza?: string | null
+                    citta?: string | null
+                    nazionalita?: string | null
+                    lingue_parlate?: string[] | null
+                    lingue_base?: string[] | null
+                    disponibilita_ore?: string | null
+                    esperienze_precedenti?: boolean | null
+                    fuma?: boolean | null
+                    patente_guida?: boolean | null
+                    automunita?: boolean | null
+                    aiuto_persone_disabili?: boolean | null
+                    aiuto_lavori_domestici?: boolean | null
+                    lettera_presentazione_famiglie?: string | null
+                    esperienze_lavorative?: string | null
+                    compenso_orientativo?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: 'dettagli_badante_profilo_id_fkey'
+                        columns: ['profilo_id']
+                        isOneToOne: true
+                        referencedRelation: 'profili'
+                        referencedColumns: ['id']
+                    },
+                ]
+            }
+            dettagli_famiglia: {
+                Row: {
+                    profilo_id: string
+                    numero_persone_casa: number | null
+                    disponibilita_stanza_privata: boolean | null
+                    persone_da_accudire: number | null
+                    richiede_esperienze_precedenti: boolean | null
+                    fumatori_in_casa: boolean | null
+                    persone_disabili_in_casa: boolean | null
+                    richiede_aiuto_lavori_domestici: boolean | null
+                    lettera_presentazione_badanti: string | null
+                    richieste_presentate: string | null
+                    condizioni_economiche_proposte: string | null
+                }
+                Insert: {
+                    profilo_id: string
+                    numero_persone_casa?: number | null
+                    disponibilita_stanza_privata?: boolean | null
+                    persone_da_accudire?: number | null
+                    richiede_esperienze_precedenti?: boolean | null
+                    fumatori_in_casa?: boolean | null
+                    persone_disabili_in_casa?: boolean | null
+                    richiede_aiuto_lavori_domestici?: boolean | null
+                    lettera_presentazione_badanti?: string | null
+                    richieste_presentate?: string | null
+                    condizioni_economiche_proposte?: string | null
+                }
+                Update: {
+                    profilo_id?: string
+                    numero_persone_casa?: number | null
+                    disponibilita_stanza_privata?: boolean | null
+                    persone_da_accudire?: number | null
+                    richiede_esperienze_precedenti?: boolean | null
+                    fumatori_in_casa?: boolean | null
+                    persone_disabili_in_casa?: boolean | null
+                    richiede_aiuto_lavori_domestici?: boolean | null
+                    lettera_presentazione_badanti?: string | null
+                    richieste_presentate?: string | null
+                    condizioni_economiche_proposte?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: 'dettagli_famiglia_profilo_id_fkey'
+                        columns: ['profilo_id']
+                        isOneToOne: true
+                        referencedRelation: 'profili'
+                        referencedColumns: ['id']
+                    },
+                ]
+            }
         }
-        Insert: {
-          id: string
-          role: Database['public']['Enums']['user_role']
-          first_name: string
-          last_name: string
-          avatar_url?: string | null
-          phone?: string | null
-          city?: string | null
-          created_at?: string
-          updated_at?: string
+        Views: {
+            [_ in never]: never
         }
-        Update: {
-          id?: string
-          role?: Database['public']['Enums']['user_role']
-          first_name?: string
-          last_name?: string
-          avatar_url?: string | null
-          phone?: string | null
-          city?: string | null
-          created_at?: string
-          updated_at?: string
+        Functions: {
+            cerca_badanti_vicine: {
+                Args: {
+                    lat_target: number
+                    lon_target: number
+                    raggio_km?: number
+                }
+                Returns: {
+                    id: string
+                    nome: string | null
+                    provincia: string | null
+                    avatar_url: string | null
+                    distanza_km: number
+                    sesso: string | null
+                    eta: number | null
+                    citta: string | null
+                    nazionalita: string | null
+                    compenso_orientativo: string | null
+                }[]
+            }
         }
-      }
-      caregiver_profiles: {
-        Row: {
-          id: string
-          bio: string | null
-          hourly_rate: number | null
-          years_experience: number | null
-          languages: string[] | null
-          available_now: boolean | null
-          rating: number | null
-          reviews_count: number | null
-          lat: number | null
-          lng: number | null
-          city: string | null
-          address: string | null
-          is_online: boolean | null
-          driving_license: boolean | null
-          car_owner: boolean | null
-          pets_allowed: boolean | null
-          smoker: boolean | null
-          care_types: Database['public']['Enums']['care_type'][] | null
-          created_at: string
-          updated_at: string
+        Enums: {
+            ruolo_utente: 'famiglia' | 'badante' | 'admin'
         }
-        Insert: {
-          id: string
-          bio?: string | null
-          hourly_rate?: number | null
-          years_experience?: number | null
-          languages?: string[] | null
-          available_now?: boolean | null
-          rating?: number | null
-          reviews_count?: number | null
-          lat?: number | null
-          lng?: number | null
-          city?: string | null
-          address?: string | null
-          is_online?: boolean | null
-          driving_license?: boolean | null
-          car_owner?: boolean | null
-          pets_allowed?: boolean | null
-          smoker?: boolean | null
-          care_types?: Database['public']['Enums']['care_type'][] | null
-          created_at?: string
-          updated_at?: string
+        CompositeTypes: {
+            [_ in never]: never
         }
-        Update: {
-          id?: string
-          bio?: string | null
-          hourly_rate?: number | null
-          years_experience?: number | null
-          languages?: string[] | null
-          available_now?: boolean | null
-          rating?: number | null
-          reviews_count?: number | null
-          lat?: number | null
-          lng?: number | null
-          city?: string | null
-          address?: string | null
-          is_online?: boolean | null
-          driving_license?: boolean | null
-          car_owner?: boolean | null
-          pets_allowed?: boolean | null
-          smoker?: boolean | null
-          care_types?: Database['public']['Enums']['care_type'][] | null
-          created_at?: string
-          updated_at?: string
-        }
-      }
     }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      search_caregivers_nearby: {
-        Args: {
-          search_lat?: number
-          search_lng?: number
-          max_distance?: number
-          p_care_type?: Database['public']['Enums']['care_type']
-          min_rate?: number
-          max_rate?: number
-          min_experience?: number
-          req_languages?: string[]
-        }
-        Returns: {
-          id: string
-          first_name: string
-          last_name: string
-          avatar_url: string | null
-          bio: string | null
-          hourly_rate: number | null
-          years_experience: number | null
-          languages: string[] | null
-          available_now: boolean | null
-          rating: number | null
-          reviews_count: number | null
-          care_types: Database['public']['Enums']['care_type'][] | null
-          lat: number | null
-          lng: number | null
-          distance: number
-        }[]
-      }
-    }
-    Enums: {
-      care_type: "badante" | "colf" | "babysitter" | "oss"
-      user_role: "caregiver" | "family"
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
 }
+
+type PublicSchema = Database[Extract<keyof Database, 'public'>]
+
+export type Tables<
+    PublicTableNameOrOptions extends
+        | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+        | { schema: keyof Database },
+    TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+        ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+              Database[PublicTableNameOrOptions['schema']]['Views'])
+        : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+    ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+          Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
+          Row: infer R
+      }
+        ? R
+        : never
+    : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
+            PublicSchema['Views'])
+      ? (PublicSchema['Tables'] &
+            PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+            Row: infer R
+        }
+          ? R
+          : never
+      : never
+
+export type TablesInsert<
+    PublicTableNameOrOptions extends
+        | keyof PublicSchema['Tables']
+        | { schema: keyof Database },
+    TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+        ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+        : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+    ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+          Insert: infer I
+      }
+        ? I
+        : never
+    : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+      ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+            Insert: infer I
+        }
+          ? I
+          : never
+      : never
+
+export type TablesUpdate<
+    PublicTableNameOrOptions extends
+        | keyof PublicSchema['Tables']
+        | { schema: keyof Database },
+    TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+        ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+        : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+    ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+          Update: infer U
+      }
+        ? U
+        : never
+    : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+      ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+            Update: infer U
+        }
+          ? U
+          : never
+      : never
+
+export type Enums<
+    PublicEnumNameOrOptions extends
+        | keyof PublicSchema['Enums']
+        | { schema: keyof Database },
+    EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+        ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
+        : never = never,
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
+    : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
+      ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+      : never

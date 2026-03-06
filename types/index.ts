@@ -1,26 +1,36 @@
 import type { Database } from './supabase'
 
+/* ── Coordinates ── */
 export interface Coordinates {
     lat: number
     lng: number
 }
 
-export interface SearchFilters {
-    category?: Database['public']['Enums']['care_type']
-    maxDistance: number
-    minRate?: number
-    maxRate?: number
-    experienceYears?: number
-    languages?: string[]
-    verifiedOnly: boolean
-}
+/* ── Derived table row types ── */
+export type Profilo = Database['public']['Tables']['profili']['Row']
+export type DettagliBadante = Database['public']['Tables']['dettagli_badante']['Row']
+export type DettagliFamiglia = Database['public']['Tables']['dettagli_famiglia']['Row']
 
-export type DbCaregiverResult = Database['public']['Functions']['search_caregivers_nearby']['Returns'][number]
+/** Enum: ruolo utente */
+export type RuoloUtente = Database['public']['Enums']['ruolo_utente']
 
-export interface CaregiverResult extends DbCaregiverResult {
-    // Add UI specific properties that may not be available from DB yet
-    city?: string
-    is_online?: boolean
-    age?: number
-    is_verified?: boolean
+/** Result row returned by the `cerca_badanti_vicine` RPC */
+export type CercaBadantiResult =
+    Database['public']['Functions']['cerca_badanti_vicine']['Returns'][number]
+
+/** Filter categories shown in the Discovery chip bar */
+export type RuoloFilter = 'Tutti' | 'Badante' | 'Badante 24h' | 'Babysitter'
+
+/** Zustand store shape for Discovery filters */
+export interface FiltersState {
+    ruolo: RuoloFilter
+    radius_km: number
+    solo_verificati: boolean
+    lat: number | null
+    lng: number | null
+    setRuolo: (r: RuoloFilter) => void
+    setRadius: (km: number) => void
+    toggleVerificati: () => void
+    setCoordinates: (lat: number, lng: number) => void
+    resetFilters: () => void
 }

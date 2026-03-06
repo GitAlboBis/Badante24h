@@ -48,12 +48,12 @@ export async function middleware(request: NextRequest) {
     // Admin route protection
     if (user && adminPaths.some(p => pathname.startsWith(p))) {
         const { data: profile } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', user.id)
+            .from('profili')
+            .select('ruolo')
+            .eq('utente_id', user.id)
             .single()
 
-        if (profile?.role !== 'admin') {
+        if (profile?.ruolo !== 'admin') {
             return NextResponse.redirect(new URL('/discover', request.url))
         }
     }
