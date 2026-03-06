@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Badante24h Desktop Discovery</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style type="text/tailwindcss">
+        :root {
+            --primary: #2563EB;
+            --background: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="text-slate-900">
+    <nav
+        class="sticky top-0 z-50 w-full bg-white border-b border-slate-200 px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2 shrink-0">
+            <div class="size-9 bg-[var(--primary)] rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white">diversity_1</span>
+            </div>
+            <span class="text-2xl font-bold tracking-tight text-[var(--primary)]">Badante24h</span>
+        </div>
+        <div class="flex-1 max-w-[500px] mx-8">
+            <div class="relative group">
+                <span
+                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[var(--primary)] transition-colors">search</span>
+                <input
+                    class="w-full pl-12 pr-4 py-2.5 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-[var(--primary)]/20 focus:bg-white transition-all"
+                    placeholder="Cerca nella tua zona..." type="text" />
+            </div>
+        </div>
+        <div class="flex items-center gap-6 shrink-0">
+            <button class="relative p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button class="relative p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors">
+                <span class="material-symbols-outlined">chat</span>
+                <span
+                    class="absolute top-1 right-1 size-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white">3</span>
+            </button>
+            <div class="h-8 w-px bg-slate-200"></div>
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-semibold hidden lg:block">Marco Rossi</span>
+                <div class="size-10 rounded-full overflow-hidden border-2 border-[var(--primary)]/10">
+                    <img alt="Profile" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4FyIHEXobpI2B0ln1kaRe37GOWd94gu7aEbvqqW3iTT7JIlplrVedbJ4Fuqi_0N7BNJ5pI3IFtH6rhzjomi65e06H54kyEii82oDVx1pVQw52R1e1XnOokiiVycRU_kPgTLbSyiT37KdxmfvB7YnqlTNpnvir15DAXlrbp21NqorVrVO_sTJdvVZMHpi0rTGirNWNx0drhTBJDVxqmNmwxUd7Y-iMwlhccZ30RJJ_6g6Lm7hXR_ZO3ltAkVv-8SrQhRocknHc" />
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="flex min-h-[calc(100vh-65px)]">
+        <aside
+            class="w-[280px] bg-white border-r border-slate-200 p-6 shrink-0 hidden md:block overflow-y-auto custom-scrollbar">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold">Filtri</h2>
+                <button class="text-xs font-semibold text-[var(--primary)] hover:underline">Reset</button>
+            </div>
+            <div class="space-y-3 mb-8">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Categorie</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input checked="" class="text-[var(--primary)] focus:ring-[var(--primary)]" name="category"
+                            type="radio" />
+                        <span
+                            class="text-sm font-medium group-hover:text-[var(--primary)] transition-colors">Tutti</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input class="text-[var(--primary)] focus:ring-[var(--primary)]" name="category" type="radio" />
+                        <span
+                            class="text-sm font-medium group-hover:text-[var(--primary)] transition-colors">Badante</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input class="text-[var(--primary)] focus:ring-[var(--primary)]" name="category" type="radio" />
+                        <span class="text-sm font-medium group-hover:text-[var(--primary)] transition-colors">Badante
+                            24h</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input class="text-[var(--primary)] focus:ring-[var(--primary)]" name="category" type="radio" />
+                        <span
+                            class="text-sm font-medium group-hover:text-[var(--primary)] transition-colors">Babysitter</span>
+                    </label>
+                </div>
+            </div>
+            <div class="flex items-center justify-between mb-8">
+                <span class="text-sm font-medium">Solo Verificati</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input class="sr-only peer" type="checkbox" />
+                    <div
+                        class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--primary)]">
+                    </div>
+                </label>
+            </div>
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Distanza massima</p>
+                    <span class="text-sm font-bold text-[var(--primary)]">25 km</span>
+                </div>
+                <input class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[var(--primary)]"
+                    max="50" min="1" type="range" value="25" />
+                <div class="flex justify-between mt-2">
+                    <span class="text-[10px] text-slate-400">1km</span>
+                    <span class="text-[10px] text-slate-400">50km</span>
+                </div>
+            </div>
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tariffa oraria</p>
+                    <span class="text-sm font-bold text-[var(--primary)]">€5 - €30</span>
+                </div>
+                <input class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[var(--primary)]"
+                    max="30" min="5" type="range" value="15" />
+            </div>
+            <div class="mb-8">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Esperienza</p>
+                <select
+                    class="w-full rounded-xl border-slate-200 text-sm focus:border-[var(--primary)] focus:ring-[var(--primary)]">
+                    <option>Qualsiasi</option>
+                    <option>1-3 anni</option>
+                    <option>3-5 anni</option>
+                    <option>5+ anni</option>
+                </select>
+            </div>
+            <div class="mb-8">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Lingue</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input checked="" class="rounded text-[var(--primary)] focus:ring-[var(--primary)]"
+                            type="checkbox" />
+                        <span class="text-sm font-medium">Italiano</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input class="rounded text-[var(--primary)] focus:ring-[var(--primary)]" type="checkbox" />
+                        <span class="text-sm font-medium">Inglese</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input class="rounded text-[var(--primary)] focus:ring-[var(--primary)]" type="checkbox" />
+                        <span class="text-sm font-medium">Spagnolo</span>
+                    </label>
+                </div>
+            </div>
+            <button
+                class="w-full py-3 bg-[var(--primary)] text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors">
+                Applica Filtri
+            </button>
+        </aside>
+        <main class="flex-1 overflow-y-auto custom-scrollbar p-8">
+            <header class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold">24 badanti nelle vicinanze</h2>
+                    <p class="text-slate-500 text-sm">Risultati basati sulla tua posizione attuale</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-slate-500">Ordina per:</span>
+                    <select
+                        class="rounded-xl border-none bg-white shadow-sm text-sm font-bold focus:ring-[var(--primary)] py-2 pl-4 pr-10">
+                        <option>Distanza</option>
+                        <option>Voto: Più alto</option>
+                        <option>Prezzo: Crescente</option>
+                        <option>Esperienza</option>
+                    </select>
+                </div>
+            </header>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-56 shrink-0">
+                        <img alt="Maria R." class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-BuJwvD43iijkSb4PO8Y-zdPRvbULioGzeFPuMbOi85NNdXHr5pAP7TZLNlgO76rk_2J7hhTcctrrMsPb-pBq8v8Gl26ILyTAXGro_S9GhPTLS-QcZGuNXqvCgNs-vmwrjuJQyfjRw1I6ROopuuq1p3ZqDxZH38J99f_WA0S0GIV-5MMM-QnIv4Zi8CVcUjdks8aFuOHbOxyoN4FlSoiM7V9BiE1jkqd6Yr5WsEEii3PsnQIGnlfCmcsgpZvxx0S3_5gXjRvE" />
+                        <div class="absolute top-3 right-3 flex flex-col gap-2">
+                            <button
+                                class="p-2 bg-white/90 backdrop-blur-sm rounded-full text-rose-500 shadow-sm hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined fill-1">favorite</span>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                            <div
+                                class="size-3 bg-emerald-500 rounded-full border-2 border-white ring-2 ring-emerald-500/20">
+                            </div>
+                            <span
+                                class="text-white text-[10px] font-bold bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full uppercase tracking-wider">Online</span>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-1">
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="font-bold text-lg">Maria R., 45</h3>
+                                <span class="material-symbols-outlined text-emerald-500 text-xl"
+                                    title="Profilo Verificato">verified</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">
+                                <span class="material-symbols-outlined text-sm fill-1">star</span>
+                                <span class="text-xs font-bold">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 flex items-center gap-1 mb-4">
+                            <span class="material-symbols-outlined text-sm">location_on</span> 2.3 km • Milano
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span
+                                class="px-3 py-1 bg-blue-50 text-[var(--primary)] text-[11px] font-bold rounded-full uppercase tracking-wide">Badante
+                                24h</span>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
+                                <span class="text-xl font-black text-[var(--primary)]">€12<span
+                                        class="text-sm font-normal text-slate-400">/ora</span></span>
+                            </div>
+                            <button
+                                class="bg-[var(--primary)] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">Contatta</button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-56 shrink-0">
+                        <img alt="Lucia P." class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4Fsl34LgnQs3DS-qLAzksgmQnPt0DtM_k-UyaDFRde36Q6rk_XCsEbD3NVQihU45U0S24cCbLLNB1Q1snU_RnOimrU1RpH21gduHPHeeKno1Wh-eeRNspRIOxSKCZYFOAZGZFNZMJ3p1TfJrLtL1RRPyqaQjwh0q3jpcsfnTOGz35gmOgTtupT2mTvr2Sif2R7IvPbnVwaiHcvCDQQgeUnktWhgIq6tPDkuMCqrceyBeq-z4jjiampdTR9D6EEGWVDgwvHQtq" />
+                        <div class="absolute top-3 right-3">
+                            <button class="p-2 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 shadow-sm">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                            <div
+                                class="size-3 bg-emerald-500 rounded-full border-2 border-white ring-2 ring-emerald-500/20">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-1">
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="font-bold text-lg">Lucia P., 52</h3>
+                                <span class="material-symbols-outlined text-emerald-500 text-xl">verified</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">
+                                <span class="material-symbols-outlined text-sm fill-1">star</span>
+                                <span class="text-xs font-bold">5.0</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 flex items-center gap-1 mb-4">
+                            <span class="material-symbols-outlined text-sm">location_on</span> 1.1 km • Milano
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span
+                                class="px-3 py-1 bg-slate-100 text-slate-600 text-[11px] font-bold rounded-full uppercase tracking-wide">Badante</span>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
+                                <span class="text-xl font-black text-[var(--primary)]">€15<span
+                                        class="text-sm font-normal text-slate-400">/ora</span></span>
+                            </div>
+                            <button
+                                class="bg-[var(--primary)] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">Contatta</button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-56 shrink-0">
+                        <img alt="Anna M." class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZi-rSs8_-9wK5A75cvLwIdHlJgp3pEoHVtlGgev99gRd5O3p_PAG0Jl177lVg-zpBDMBr-pMBarhENOQwBxHqwgKOpUCPL56yxw5UU8lg25UfoY7Zc60xBuvXFsASx16zKcOzX5fabfDbVB3UaJk5gyiV7GPz7GCY232-5vukRbBz3yFjfjr2ThqnyrJ1855U9tcyA6VBSUrgFr5Sy75XZNf0mFlC5V05iHNlDRjYJOXHOuOU3TiyIGFkgA-gujmXPFGG_vQj" />
+                        <div class="absolute top-3 right-3">
+                            <button class="p-2 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 shadow-sm">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-1">
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="font-bold text-lg">Anna M., 38</h3>
+                                <span class="material-symbols-outlined text-emerald-500 text-xl">verified</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">
+                                <span class="material-symbols-outlined text-sm fill-1">star</span>
+                                <span class="text-xs font-bold">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 flex items-center gap-1 mb-4">
+                            <span class="material-symbols-outlined text-sm">location_on</span> 3.5 km • Milano
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span
+                                class="px-3 py-1 bg-blue-50 text-[var(--primary)] text-[11px] font-bold rounded-full uppercase tracking-wide">Babysitter</span>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
+                                <span class="text-xl font-black text-[var(--primary)]">€10<span
+                                        class="text-sm font-normal text-slate-400">/ora</span></span>
+                            </div>
+                            <button
+                                class="bg-[var(--primary)] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">Contatta</button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-56 shrink-0">
+                        <img alt="Sofia B." class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyKq9uJO8zDYO96vA3s6ecqervuW_0lnO5V70EFhjA0ZjNhjfTGtLwQqh_0QJy95pegTeoN4XVz9ic54i6fGPoZ_fI3jIBISRd4ZXepDPmNsUwtBgRALMmo_yOnbZhcBf1n8AZl7hd23WkvumrgbLxeN4nnimlV7LzJrCnp6vk49saxndocW108LcoKeNu4tb_A7OGJTIRlrGRDmHiTs3hAWr18BeW8OvXc9RbnGZBUmrxVAI9xYEe-EFxuP4wj2ee-ib5a2Bu" />
+                        <div class="absolute top-3 right-3">
+                            <button class="p-2 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 shadow-sm">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                            <div
+                                class="size-3 bg-emerald-500 rounded-full border-2 border-white ring-2 ring-emerald-500/20">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-1">
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="font-bold text-lg">Sofia B., 29</h3>
+                                <span class="material-symbols-outlined text-emerald-500 text-xl">verified</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">
+                                <span class="material-symbols-outlined text-sm fill-1">star</span>
+                                <span class="text-xs font-bold">4.7</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 flex items-center gap-1 mb-4">
+                            <span class="material-symbols-outlined text-sm">location_on</span> 0.8 km • Milano
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span
+                                class="px-3 py-1 bg-blue-50 text-[var(--primary)] text-[11px] font-bold rounded-full uppercase tracking-wide">Badante
+                                24h</span>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
+                                <span class="text-xl font-black text-[var(--primary)]">€14<span
+                                        class="text-sm font-normal text-slate-400">/ora</span></span>
+                            </div>
+                            <button
+                                class="bg-[var(--primary)] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">Contatta</button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-56 shrink-0">
+                        <img alt="Elena K." class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb3RmoLZX9tsJiOJZWwUw5O7Y_DpGQ94H_HylCQNl8z5nVVoQ3mOWo3IS5hvpTEYoIgwqxmP-w5no85x30J2UbwbRYsWXuZs9TmceCjtJrBoKYYyxKH_fILMIZN8uT69X4zlVco-QYG4Nr35kQe396RJPSl9NIhDAYFR4gYp62QjVHy7iXxh93_qv1Z4sNrq_QJudBDeOtz8MdYTlhkRPcvMPwkDA1BoR89XxUcimVKJiYKvexiPG0_yO9ctW-W2E_kx8n9Waz" />
+                        <div class="absolute top-3 right-3">
+                            <button class="p-2 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 shadow-sm">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                            <div
+                                class="size-3 bg-emerald-500 rounded-full border-2 border-white ring-2 ring-emerald-500/20">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-1">
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="font-bold text-lg">Elena K., 49</h3>
+                                <span class="material-symbols-outlined text-emerald-500 text-xl">verified</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">
+                                <span class="material-symbols-outlined text-sm fill-1">star</span>
+                                <span class="text-xs font-bold">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 flex items-center gap-1 mb-4">
+                            <span class="material-symbols-outlined text-sm">location_on</span> 4.2 km • Milano
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span
+                                class="px-3 py-1 bg-slate-100 text-slate-600 text-[11px] font-bold rounded-full uppercase tracking-wide">Badante</span>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
+                                <span class="text-xl font-black text-[var(--primary)]">€13<span
+                                        class="text-sm font-normal text-slate-400">/ora</span></span>
+                            </div>
+                            <button
+                                class="bg-[var(--primary)] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">Contatta</button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-56 shrink-0">
+                        <img alt="Carla D." class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA49P_DgUrZT_CYpudLqhnkB3p-NXb0ayq_DZgJ6f52YV-fe-u_A4C-d9ysKY4E5I_ULtzq9oboB9OtU_J6G2Z4w4FA9__X4ChDdOxXpHtkyUPeXvDpsOE3uNl9zILMLi8NfY1tvPp37F7QKYj9UhLxsKfgH4LdfcT803_3Q8tOPmUepYCwSUH37wEzS5APnyw4mVa2TdePe5LX1AUUXCqTm4u_fJz3lzewlP1jSWB7gZwK3tUoLZQRH3FpQ-vM2YgFTkHSPk6T" />
+                        <div class="absolute top-3 right-3">
+                            <button class="p-2 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 shadow-sm">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex items-start justify-between mb-1">
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="font-bold text-lg">Carla D., 55</h3>
+                                <span class="material-symbols-outlined text-emerald-500 text-xl">verified</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">
+                                <span class="material-symbols-outlined text-sm fill-1">star</span>
+                                <span class="text-xs font-bold">5.0</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 flex items-center gap-1 mb-4">
+                            <span class="material-symbols-outlined text-sm">location_on</span> 5.0 km • Milano
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span
+                                class="px-3 py-1 bg-blue-50 text-[var(--primary)] text-[11px] font-bold rounded-full uppercase tracking-wide">Badante
+                                24h</span>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tariffa</span>
+                                <span class="text-xl font-black text-[var(--primary)]">€16<span
+                                        class="text-sm font-normal text-slate-400">/ora</span></span>
+                            </div>
+                            <button
+                                class="bg-[var(--primary)] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">Contatta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

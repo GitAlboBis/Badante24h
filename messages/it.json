@@ -1,0 +1,42 @@
+{
+    "common": {
+        "appName": "Badante24h",
+        "loading": "Caricamento...",
+        "error": "Si è verificato un errore",
+        "retry": "Riprova",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "close": "Chiudi",
+        "search": "Cerca",
+        "filters": "Filtri",
+        "reset": "Reset"
+    },
+    "nav": {
+        "discovery": "Discovery",
+        "messages": "Messaggi",
+        "favorites": "Preferiti",
+        "profile": "Profilo"
+    },
+    "auth": {
+        "login": "Accedi",
+        "signup": "Registrati",
+        "logout": "Esci",
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "Password dimenticata?"
+    },
+    "discovery": {
+        "title": "badanti nelle vicinanze",
+        "searchPlaceholder": "Cerca nella tua zona...",
+        "sortBy": "Ordina per",
+        "distance": "Distanza",
+        "rating": "Voto: Più alto",
+        "priceAsc": "Prezzo: Crescente",
+        "experience": "Esperienza",
+        "contact": "Contatta",
+        "verified": "Verificato",
+        "online": "Online",
+        "rate": "Tariffa",
+        "perHour": "/ora"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "Badante24h",
+    "short_name": "Badante24h",
+    "description": "Trova badanti e caregiver nella tua zona",
+    "start_url": "/discover",
+    "display": "standalone",
+    "background_color": "#F8FAFC",
+    "theme_color": "#2563EB",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

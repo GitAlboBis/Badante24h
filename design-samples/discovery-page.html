@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Badante24h Discovery Grid</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2463eb",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative mx-auto max-w-[430px] min-h-screen bg-background-light dark:bg-background-dark pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-20 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-4 pt-4 pb-2 flex items-center justify-between border-b border-slate-200/50 dark:border-slate-800/50">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">diversity_1</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary">Badante24h</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">notifications</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary/20 p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="User profile avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4FyIHEXobpI2B0ln1kaRe37GOWd94gu7aEbvqqW3iTT7JIlplrVedbJ4Fuqi_0N7BNJ5pI3IFtH6rhzjomi65e06H54kyEii82oDVx1pVQw52R1e1XnOokiiVycRU_kPgTLbSyiT37KdxmfvB7YnqlTNpnvir15DAXlrbp21NqorVrVO_sTJdvVZMHpi0rTGirNWNx0drhTBJDVxqmNmwxUd7Y-iMwlhccZ30RJJ_6g6Lm7hXR_ZO3ltAkVv-8SrQhRocknHc"/>
+</div>
+</div>
+</header>
+<!-- Search and Filters Section -->
+<div class="px-4 py-4 space-y-4 bg-white dark:bg-background-dark border-b border-slate-200/50 dark:border-slate-800/50">
+<!-- Search Input -->
+<div class="flex flex-col gap-3">
+<label class="relative flex items-center w-full">
+<span class="material-symbols-outlined absolute left-4 text-slate-400">location_on</span>
+<input class="w-full pl-12 pr-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-slate-400" placeholder="Cerca nella tua zona..." type="text"/>
+</label>
+<div class="flex items-center justify-between gap-4">
+<div class="flex-1">
+<label class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1 block">Ordina per</label>
+<div class="relative">
+<select class="w-full appearance-none bg-slate-100 dark:bg-slate-800 border-none rounded-xl py-2 pl-3 pr-8 text-sm font-medium focus:ring-0">
+<option>Distanza</option>
+<option>Prezzo: Min-Max</option>
+<option>Popolarità</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<button class="mt-5 p-2 bg-primary/10 text-primary rounded-xl">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</div>
+<!-- Category Chips -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar -mx-4 px-4">
+<button class="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium whitespace-nowrap">Tutti</button>
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap">Badante</button>
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap">Badante 24h</button>
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full text-sm font-medium whitespace-nowrap">Babysitter</button>
+<button class="px-4 py-2 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium whitespace-nowrap flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified</span> Verificati
+                </button>
+</div>
+</div>
+<!-- Caregiver Grid -->
+<main class="p-4">
+<div class="grid grid-cols-2 gap-4">
+<!-- Profile Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="relative h-44">
+<img class="w-full h-full object-cover" data-alt="Middle aged female caregiver professional portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-BuJwvD43iijkSb4PO8Y-zdPRvbULioGzeFPuMbOi85NNdXHr5pAP7TZLNlgO76rk_2J7hhTcctrrMsPb-pBq8v8Gl26ILyTAXGro_S9GhPTLS-QcZGuNXqvCgNs-vmwrjuJQyfjRw1I6ROopuuq1p3ZqDxZH38J99f_WA0S0GIV-5MMM-QnIv4Zi8CVcUjdks8aFuOHbOxyoN4FlSoiM7V9BiE1jkqd6Yr5WsEEii3PsnQIGnlfCmcsgpZvxx0S3_5gXjRvE"/>
+<div class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-1.5 rounded-full">
+<span class="material-symbols-outlined text-rose-500 text-lg">favorite</span>
+</div>
+<div class="absolute bottom-2 left-2 bg-emerald-500 border-2 border-white dark:border-slate-900 size-3 rounded-full"></div>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-1 mb-0.5">
+<h3 class="font-bold text-sm truncate">Maria R., 45</h3>
+<span class="material-symbols-outlined text-emerald-500 text-base">verified</span>
+</div>
+<p class="text-[11px] text-slate-500 flex items-center gap-0.5 mb-2">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 2.3 km • Milano
+                        </p>
+<div class="flex flex-wrap gap-1 mb-3">
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-md uppercase">Badante 24h</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-2">
+<span class="font-bold text-primary text-sm">€12<span class="text-[10px] text-slate-400">/ora</span></span>
+<div class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="text-[11px] font-semibold">4.9</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="relative h-44">
+<img class="w-full h-full object-cover" data-alt="Professional mature female caregiver headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4Fsl34LgnQs3DS-qLAzksgmQnPt0DtM_k-UyaDFRde36Q6rk_XCsEbD3NVQihU45U0S24cCbLLNB1Q1snU_RnOimrU1RpH21gduHPHeeKno1Wh-eeRNspRIOxSKCZYFOAZGZFNZMJ3p1TfJrLtL1RRPyqaQjwh0q3jpcsfnTOGz35gmOgTtupT2mTvr2Sif2R7IvPbnVwaiHcvCDQQgeUnktWhgIq6tPDkuMCqrceyBeq-z4jjiampdTR9D6EEGWVDgwvHQtq"/>
+<div class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-1.5 rounded-full">
+<span class="material-symbols-outlined text-slate-300 text-lg">favorite</span>
+</div>
+<div class="absolute bottom-2 left-2 bg-emerald-500 border-2 border-white dark:border-slate-900 size-3 rounded-full"></div>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-1 mb-0.5">
+<h3 class="font-bold text-sm truncate">Lucia P., 52</h3>
+<span class="material-symbols-outlined text-emerald-500 text-base">verified</span>
+</div>
+<p class="text-[11px] text-slate-500 flex items-center gap-0.5 mb-2">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 1.1 km • Milano
+                        </p>
+<div class="flex flex-wrap gap-1 mb-3">
+<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold rounded-md uppercase">Badante</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-2">
+<span class="font-bold text-primary text-sm">€15<span class="text-[10px] text-slate-400">/ora</span></span>
+<div class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="text-[11px] font-semibold">5.0</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="relative h-44">
+<img class="w-full h-full object-cover" data-alt="Smiling female caregiver in domestic environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZi-rSs8_-9wK5A75cvLwIdHlJgp3pEoHVtlGgev99gRd5O3p_PAG0Jl177lVg-zpBDMBr-pMBarhENOQwBxHqwgKOpUCPL56yxw5UU8lg25UfoY7Zc60xBuvXFsASx16zKcOzX5fabfDbVB3UaJk5gyiV7GPz7GCY232-5vukRbBz3yFjfjr2ThqnyrJ1855U9tcyA6VBSUrgFr5Sy75XZNf0mFlC5V05iHNlDRjYJOXHOuOU3TiyIGFkgA-gujmXPFGG_vQj"/>
+<div class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-1.5 rounded-full">
+<span class="material-symbols-outlined text-slate-300 text-lg">favorite</span>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-1 mb-0.5">
+<h3 class="font-bold text-sm truncate">Anna M., 38</h3>
+<span class="material-symbols-outlined text-emerald-500 text-base">verified</span>
+</div>
+<p class="text-[11px] text-slate-500 flex items-center gap-0.5 mb-2">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 3.5 km • Milano
+                        </p>
+<div class="flex flex-wrap gap-1 mb-3">
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-md uppercase">Babysitter</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-2">
+<span class="font-bold text-primary text-sm">€10<span class="text-[10px] text-slate-400">/ora</span></span>
+<div class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="text-[11px] font-semibold">4.8</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Card 4 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="relative h-44">
+<img class="w-full h-full object-cover" data-alt="Professional young female babysitter portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyKq9uJO8zDYO96vA3s6ecqervuW_0lnO5V70EFhjA0ZjNhjfTGtLwQqh_0QJy95pegTeoN4XVz9ic54i6fGPoZ_fI3jIBISRd4ZXepDPmNsUwtBgRALMmo_yOnbZhcBf1n8AZl7hd23WkvumrgbLxeN4nnimlV7LzJrCnp6vk49saxndocW108LcoKeNu4tb_A7OGJTIRlrGRDmHiTs3hAWr18BeW8OvXc9RbnGZBUmrxVAI9xYEe-EFxuP4wj2ee-ib5a2Bu"/>
+<div class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-1.5 rounded-full">
+<span class="material-symbols-outlined text-slate-300 text-lg">favorite</span>
+</div>
+<div class="absolute bottom-2 left-2 bg-emerald-500 border-2 border-white dark:border-slate-900 size-3 rounded-full"></div>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-1 mb-0.5">
+<h3 class="font-bold text-sm truncate">Sofia B., 29</h3>
+<span class="material-symbols-outlined text-emerald-500 text-base">verified</span>
+</div>
+<p class="text-[11px] text-slate-500 flex items-center gap-0.5 mb-2">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 0.8 km • Milano
+                        </p>
+<div class="flex flex-wrap gap-1 mb-3">
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-md uppercase">Badante 24h</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-2">
+<span class="font-bold text-primary text-sm">€14<span class="text-[10px] text-slate-400">/ora</span></span>
+<div class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="text-[11px] font-semibold">4.7</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Card 5 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="relative h-44">
+<img class="w-full h-full object-cover" data-alt="Experienced senior female caregiver looking friendly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb3RmoLZX9tsJiOJZWwUw5O7Y_DpGQ94H_HylCQNl8z5nVVoQ3mOWo3IS5hvpTEYoIgwqxmP-w5no85x30J2UbwbRYsWXuZs9TmceCjtJrBoKYYyxKH_fILMIZN8uT69X4zlVco-QYG4Nr35kQe396RJPSl9NIhDAYFR4gYp62QjVHy7iXxh93_qv1Z4sNrq_QJudBDeOtz8MdYTlhkRPcvMPwkDA1BoR89XxUcimVKJiYKvexiPG0_yO9ctW-W2E_kx8n9Waz"/>
+<div class="absolute bottom-2 left-2 bg-emerald-500 border-2 border-white dark:border-slate-900 size-3 rounded-full"></div>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-1 mb-0.5">
+<h3 class="font-bold text-sm truncate">Elena K., 49</h3>
+<span class="material-symbols-outlined text-emerald-500 text-base">verified</span>
+</div>
+<p class="text-[11px] text-slate-500 flex items-center gap-0.5 mb-2">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 4.2 km • Milano
+                        </p>
+<div class="flex flex-wrap gap-1 mb-3">
+<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold rounded-md uppercase">Badante</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-2">
+<span class="font-bold text-primary text-sm">€13<span class="text-[10px] text-slate-400">/ora</span></span>
+<div class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="text-[11px] font-semibold">4.9</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Card 6 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="relative h-44">
+<img class="w-full h-full object-cover" data-alt="Trustworthy mature female caregiver smiling profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA49P_DgUrZT_CYpudLqhnkB3p-NXb0ayq_DZgJ6f52YV-fe-u_A4C-d9ysKY4E5I_ULtzq9oboB9OtU_J6G2Z4w4FA9__X4ChDdOxXpHtkyUPeXvDpsOE3uNl9zILMLi8NfY1tvPp37F7QKYj9UhLxsKfgH4LdfcT803_3Q8tOPmUepYCwSUH37wEzS5APnyw4mVa2TdePe5LX1AUUXCqTm4u_fJz3lzewlP1jSWB7gZwK3tUoLZQRH3FpQ-vM2YgFTkHSPk6T"/>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-1 mb-0.5">
+<h3 class="font-bold text-sm truncate">Carla D., 55</h3>
+<span class="material-symbols-outlined text-emerald-500 text-base">verified</span>
+</div>
+<p class="text-[11px] text-slate-500 flex items-center gap-0.5 mb-2">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 5.0 km • Milano
+                        </p>
+<div class="flex flex-wrap gap-1 mb-3">
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-md uppercase">Badante 24h</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-2">
+<span class="font-bold text-primary text-sm">€16<span class="text-[10px] text-slate-400">/ora</span></span>
+<div class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="text-[11px] font-semibold">5.0</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white dark:bg-background-dark border-t border-slate-200/50 dark:border-slate-800/50 px-6 py-3 flex justify-between items-center z-30">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-1">explore</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Discovery</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Messaggi</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Preferiti</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person_pin</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Profilo</span>
+</a>
+</nav>
+</div>
+</body></html>

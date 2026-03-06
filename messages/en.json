@@ -1,0 +1,42 @@
+{
+    "common": {
+        "appName": "Badante24h",
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "retry": "Retry",
+        "save": "Save",
+        "cancel": "Cancel",
+        "close": "Close",
+        "search": "Search",
+        "filters": "Filters",
+        "reset": "Reset"
+    },
+    "nav": {
+        "discovery": "Discovery",
+        "messages": "Messages",
+        "favorites": "Favorites",
+        "profile": "Profile"
+    },
+    "auth": {
+        "login": "Sign In",
+        "signup": "Sign Up",
+        "logout": "Sign Out",
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "Forgot password?"
+    },
+    "discovery": {
+        "title": "caregivers nearby",
+        "searchPlaceholder": "Search in your area...",
+        "sortBy": "Sort by",
+        "distance": "Distance",
+        "rating": "Rating: Highest",
+        "priceAsc": "Price: Low to High",
+        "experience": "Experience",
+        "contact": "Contact",
+        "verified": "Verified",
+        "online": "Online",
+        "rate": "Rate",
+        "perHour": "/hr"
+    }
+}
