@@ -1,22 +1,18 @@
 import { create } from 'zustand'
-import type { FiltersState, RuoloFilter } from '@/types'
+import type { FiltriRicerca } from '@/types'
 
-export const useFiltersStore = create<FiltersState>((set) => ({
-    ruolo: 'Tutti',
-    radius_km: 25,
-    solo_verificati: false,
+const DEFAULTS: Pick<FiltriRicerca, 'lat' | 'lng' | 'radius_km' | 'ruolo' | 'solo_verificati'> = {
     lat: null,
     lng: null,
+    radius_km: 25,
+    ruolo: 'Tutti',
+    solo_verificati: false,
+}
 
-    setRuolo: (ruolo: RuoloFilter) => set({ ruolo }),
-    setRadius: (radius_km: number) => set({ radius_km }),
-    toggleVerificati: () =>
-        set((s) => ({ solo_verificati: !s.solo_verificati })),
-    setCoordinates: (lat: number, lng: number) => set({ lat, lng }),
-    resetFilters: () =>
-        set({
-            ruolo: 'Tutti',
-            radius_km: 25,
-            solo_verificati: false,
-        }),
+export const useFiltersStore = create<FiltriRicerca>((set) => ({
+    ...DEFAULTS,
+
+    setFiltri: (partial) => set((s) => ({ ...s, ...partial })),
+
+    resetFiltri: () => set(DEFAULTS),
 }))

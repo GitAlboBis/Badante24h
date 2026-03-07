@@ -21,16 +21,37 @@ export type CercaBadantiResult =
 /** Filter categories shown in the Discovery chip bar */
 export type RuoloFilter = 'Tutti' | 'Badante' | 'Badante 24h' | 'Babysitter'
 
-/** Zustand store shape for Discovery filters */
-export interface FiltersState {
-    ruolo: RuoloFilter
-    radius_km: number
-    solo_verificati: boolean
+/** Full caregiver profile: profili row with nested dettagli_badante */
+export type ProfiloBadanteCompleto = Profilo & {
+    dettagli_badante: DettagliBadante | null
+}
+
+/** Zustand store: discovery search filters (Italian schema) */
+export interface FiltriRicerca {
     lat: number | null
     lng: number | null
-    setRuolo: (r: RuoloFilter) => void
-    setRadius: (km: number) => void
-    toggleVerificati: () => void
-    setCoordinates: (lat: number, lng: number) => void
-    resetFilters: () => void
+    radius_km: number
+    ruolo: RuoloFilter
+    solo_verificati: boolean
+    setFiltri: (partial: Partial<Omit<FiltriRicerca, 'setFiltri' | 'resetFiltri'>>) => void
+    resetFiltri: () => void
 }
+
+/* ── Chat types ── */
+export type Conversation = Database['public']['Tables']['conversations']['Row']
+export type ConversationParticipant = Database['public']['Tables']['conversation_participants']['Row']
+export type Message = Database['public']['Tables']['messages']['Row']
+
+/** Inbox item: conversation + the other participant's profile info */
+export interface ConversationWithOtherUser {
+    conversation_id: string
+    last_message_text: string | null
+    last_message_at: string | null
+    unread_count: number | null
+    other_user: {
+        profilo_id: string
+        nome: string | null
+        avatar_url: string | null
+    }
+}
+

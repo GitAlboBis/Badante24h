@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useFiltersStore } from '@/stores/filters-store'
 
 interface GeolocationState {
     lat: number | null
@@ -11,7 +12,8 @@ interface GeolocationState {
 
 /**
  * Browser Geolocation API hook.
- * Requests position once on mount; exposes lat/lng, error, and loading state.
+ * Requests position once on mount and automatically pushes
+ * the coordinates into the Zustand filters store.
  */
 export function useGeolocation(): GeolocationState {
     const [state, setState] = useState<GeolocationState>({
@@ -20,6 +22,8 @@ export function useGeolocation(): GeolocationState {
         error: null,
         loading: true,
     })
+
+    const setFiltri = useFiltersStore((s) => s.setFiltri)
 
     useEffect(() => {
         if (!navigator.geolocation) {
@@ -33,12 +37,11 @@ export function useGeolocation(): GeolocationState {
 
         navigator.geolocation.getCurrentPosition(
             (pos) => {
-                setState({
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude,
-                    error: null,
-                    loading: false,
-                })
+                const lat = pos.coords.latitude
+                const lng = pos.coords.longitude
+                setState({ lat, lng, error: null, loading: false })
+                // ← automatically sync into the store
+                setFiltri({ lat, lng })
             },
             (err) => {
                 let message = 'Impossibile ottenere la posizione.'
@@ -53,7 +56,7 @@ export function useGeolocation(): GeolocationState {
             },
             { enableHighAccuracy: false, timeout: 10_000, maximumAge: 300_000 }
         )
-    }, [])
+    }, [setFiltri])
 
     return state
 }
