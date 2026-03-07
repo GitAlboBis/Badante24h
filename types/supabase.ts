@@ -22,6 +22,7 @@ export type Database = {
                     numero_visite: number | null
                     avatar_url: string | null
                     location: unknown | null
+                    verificato: boolean | null
                 }
                 Insert: {
                     id?: string
@@ -35,6 +36,7 @@ export type Database = {
                     numero_visite?: number | null
                     avatar_url?: string | null
                     location?: unknown | null
+                    verificato?: boolean | null
                 }
                 Update: {
                     id?: string
@@ -48,6 +50,7 @@ export type Database = {
                     numero_visite?: number | null
                     avatar_url?: string | null
                     location?: unknown | null
+                    verificato?: boolean | null
                 }
                 Relationships: [
                     {
@@ -268,6 +271,56 @@ export type Database = {
                     },
                 ]
             }
+            documents: {
+                Row: {
+                    id: string
+                    profile_id: string
+                    file_url: string
+                    file_name: string
+                    file_type: string | null
+                    document_type: string
+                    status: Database['public']['Enums']['verification_status'] | null
+                    reviewed_by: string | null
+                    reviewed_at: string | null
+                    review_notes: string | null
+                    created_at: string | null
+                }
+                Insert: {
+                    id?: string
+                    profile_id: string
+                    file_url: string
+                    file_name: string
+                    file_type?: string | null
+                    document_type?: string
+                    status?: Database['public']['Enums']['verification_status'] | null
+                    reviewed_by?: string | null
+                    reviewed_at?: string | null
+                    review_notes?: string | null
+                    created_at?: string | null
+                }
+                Update: {
+                    id?: string
+                    profile_id?: string
+                    file_url?: string
+                    file_name?: string
+                    file_type?: string | null
+                    document_type?: string
+                    status?: Database['public']['Enums']['verification_status'] | null
+                    reviewed_by?: string | null
+                    reviewed_at?: string | null
+                    review_notes?: string | null
+                    created_at?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: 'documents_profile_id_fkey'
+                        columns: ['profile_id']
+                        isOneToOne: false
+                        referencedRelation: 'profili'
+                        referencedColumns: ['id']
+                    },
+                ]
+            }
         }
         Views: {
             [_ in never]: never
@@ -295,6 +348,7 @@ export type Database = {
         }
         Enums: {
             ruolo_utente: 'famiglia' | 'badante' | 'admin'
+            verification_status: 'pending' | 'approved' | 'rejected'
         }
         CompositeTypes: {
             [_ in never]: never

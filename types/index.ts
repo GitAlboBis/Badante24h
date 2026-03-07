@@ -42,6 +42,10 @@ export type Conversation = Database['public']['Tables']['conversations']['Row']
 export type ConversationParticipant = Database['public']['Tables']['conversation_participants']['Row']
 export type Message = Database['public']['Tables']['messages']['Row']
 
+/* ── Document / KYC types ── */
+export type Document = Database['public']['Tables']['documents']['Row']
+export type VerificationStatus = Database['public']['Enums']['verification_status']
+
 /** Inbox item: conversation + the other participant's profile info */
 export interface ConversationWithOtherUser {
     conversation_id: string
