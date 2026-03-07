@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
 
     // Protected routes
-    const protectedPaths = ['/discover', '/chat', '/profile', '/settings', '/onboarding']
+    const protectedPaths = ['/discover', '/chat', '/profile', '/settings', '/onboarding', '/dashboard']
     const adminPaths = ['/dashboard']
     const authPaths = ['/login', '/signup']
 
@@ -45,7 +45,28 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/discover', request.url))
     }
 
-    // Admin route protection
+    // ── Onboarding guard ──
+    // Routes that are exempt from the "must have profilo" check
+    const onboardingExempt = ['/onboarding', '/settings']
+
+    if (
+        user &&
+        protectedPaths.some(p => pathname.startsWith(p)) &&
+        !onboardingExempt.some(p => pathname.startsWith(p))
+    ) {
+        const { data: profile } = await supabase
+            .from('profili')
+            .select('id, nome, ruolo')
+            .eq('utente_id', user.id)
+            .single()
+
+        // No profilo row, or profilo exists but nome is empty → onboarding
+        if (!profile || !profile.nome) {
+            return NextResponse.redirect(new URL('/onboarding', request.url))
+        }
+    }
+
+    // Admin check also for users who HAVE profiles but need admin role
     if (user && adminPaths.some(p => pathname.startsWith(p))) {
         const { data: profile } = await supabase
             .from('profili')
