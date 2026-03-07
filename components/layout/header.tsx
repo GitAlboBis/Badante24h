@@ -1,8 +1,35 @@
-import React from 'react'
-import Link from 'next/link'
-import { Bell, MessageCircle, Search, Users } from 'lucide-react'
+'use client'
 
-export function Header() {
+import React, { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
+import { Bell, MessageCircle, Search, Users, LogOut, Settings, UserCircle, ChevronDown } from 'lucide-react'
+import { signOut } from '@/app/(app)/auth-actions'
+
+interface HeaderProps {
+    userName: string | null
+    avatarUrl: string | null
+    unreadCount: number
+}
+
+export function Header({ userName, avatarUrl, unreadCount }: HeaderProps) {
+    const [menuOpen, setMenuOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
+
+    // Close on outside click
+    useEffect(() => {
+        function handleClick(e: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+                setMenuOpen(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClick)
+        return () => document.removeEventListener('mousedown', handleClick)
+    }, [])
+
+    const initials = userName
+        ? userName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+        : '?'
+
     return (
         <nav className="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-4 md:px-8 py-3 flex items-center justify-between border-b border-slate-200 transition-colors">
             <div className="flex items-center gap-2 shrink-0">
@@ -30,22 +57,68 @@ export function Header() {
                     <Bell className="size-5 md:size-6" />
                 </button>
 
-                <button className="relative p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors hidden md:block">
+                <Link href="/chat" className="relative p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors hidden md:block">
                     <MessageCircle className="size-5 md:size-6" />
-                    <span className="absolute top-1 right-1 size-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white">3</span>
-                </button>
+                    {unreadCount > 0 && (
+                        <span className="absolute top-1 right-1 size-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white">
+                            {unreadCount > 9 ? '9+' : unreadCount}
+                        </span>
+                    )}
+                </Link>
 
                 <div className="hidden md:block h-8 w-px bg-slate-200"></div>
 
-                <div className="flex items-center gap-3 cursor-pointer">
-                    <span className="text-sm font-semibold hidden lg:block">Marco Rossi</span>
-                    <div className="size-10 rounded-full overflow-hidden border-2 border-primary/10 p-0.5">
-                        <img
-                            alt="Profile avatar"
-                            className="w-full h-full rounded-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4FyIHEXobpI2B0ln1kaRe37GOWd94gu7aEbvqqW3iTT7JIlplrVedbJ4Fuqi_0N7BNJ5pI3IFtH6rhzjomi65e06H54kyEii82oDVx1pVQw52R1e1XnOokiiVycRU_kPgTLbSyiT37KdxmfvB7YnqlTNpnvir15DAXlrbp21NqorVrVO_sTJdvVZMHpi0rTGirNWNx0drhTBJDVxqmNmwxUd7Y-iMwlhccZ30RJJ_6g6Lm7hXR_ZO3ltAkVv-8SrQhRocknHc"
-                        />
-                    </div>
+                {/* User dropdown */}
+                <div className="relative" ref={menuRef}>
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                    >
+                        <span className="text-sm font-semibold hidden lg:block">{userName ?? 'Utente'}</span>
+                        <div className="size-10 rounded-full overflow-hidden border-2 border-primary/10 p-0.5 flex items-center justify-center bg-primary/5">
+                            {avatarUrl ? (
+                                <img
+                                    alt="Profile avatar"
+                                    className="w-full h-full rounded-full object-cover"
+                                    src={avatarUrl}
+                                />
+                            ) : (
+                                <span className="text-sm font-bold text-primary">{initials}</span>
+                            )}
+                        </div>
+                        <ChevronDown className="size-4 text-slate-400 hidden lg:block" />
+                    </button>
+
+                    {menuOpen && (
+                        <div className="absolute right-0 top-14 w-52 bg-white border border-slate-200 rounded-xl shadow-lg py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                            <Link
+                                href="/profile/edit"
+                                onClick={() => setMenuOpen(false)}
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                            >
+                                <UserCircle className="size-4" />
+                                Il mio profilo
+                            </Link>
+                            <Link
+                                href="/settings"
+                                onClick={() => setMenuOpen(false)}
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                            >
+                                <Settings className="size-4" />
+                                Impostazioni
+                            </Link>
+                            <div className="border-t border-slate-100 my-1" />
+                            <form action={signOut}>
+                                <button
+                                    type="submit"
+                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                                >
+                                    <LogOut className="size-4" />
+                                    Esci
+                                </button>
+                            </form>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>

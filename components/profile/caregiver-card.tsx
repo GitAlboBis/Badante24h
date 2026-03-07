@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Heart, MapPin } from 'lucide-react'
+import { Heart, MapPin, BadgeCheck } from 'lucide-react'
 import type { CercaBadantiResult } from '@/types'
 
 interface CaregiverCardProps {
@@ -70,7 +70,9 @@ export function CaregiverCard({ profile }: CaregiverCardProps) {
                         {profile.nome ?? 'Senza nome'}
                         {profile.eta ? `, ${profile.eta}` : ''}
                     </h3>
-                    {/* placeholder verified badge — controlled by backend later */}
+                    {profile.verificato && (
+                        <BadgeCheck className="size-4 text-emerald-500 shrink-0" />
+                    )}
                 </div>
 
                 {/* City + nationality */}

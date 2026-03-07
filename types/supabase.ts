@@ -343,6 +343,7 @@ export type Database = {
                     citta: string | null
                     nazionalita: string | null
                     compenso_orientativo: string | null
+                    verificato: boolean
                 }[]
             }
         }

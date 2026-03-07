@@ -72,8 +72,7 @@ export default async function ProfilePage({ params }: PageProps) {
     const age = calcAge(details?.data_di_nascita ?? null)
     const nome = profile.nome ?? 'Senza nome'
 
-    // Placeholder: is_verificato doesn't exist in DB yet
-    const isVerificato = false
+    const isVerificato = profile.verificato === true
 
     /* ── Skills / boolean traits ── */
     const traits = [
